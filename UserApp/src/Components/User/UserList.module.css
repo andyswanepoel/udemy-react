@@ -1,0 +1,7 @@
+.user-list {
+	list-style-type: none;
+}
+
+.no-user-list {
+	font-weight: bold;
+}
