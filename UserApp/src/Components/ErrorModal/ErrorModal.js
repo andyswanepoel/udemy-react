@@ -2,7 +2,13 @@ import Button from "../UI/Button";
 import styles from "./ErrorModal.module.css";
 const ErrorModal = ({ errorMessage, onCloseModal }) => {
   return (
-    <div className={styles["modal-background"]}>
+    <div>
+      <div
+        className={styles["modal-background"]}
+        onClick={() => {
+          onCloseModal();
+        }}
+      ></div>
       <div className={styles["modal-container"]}>
         <h2 className={styles["modal-header"]}>Submission Error</h2>
         <p className={styles["error-message"]}>{errorMessage}</p>
