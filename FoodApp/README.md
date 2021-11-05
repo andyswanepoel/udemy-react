@@ -1,5 +1,7 @@
 # ReactMeals App
 
+The project can be viewed at https://andy-swanepoel-react-meals.netlify.app/
+
 ## Getting Started
 
 To run the app locally:
