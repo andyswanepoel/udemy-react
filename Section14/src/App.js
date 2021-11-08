@@ -13,22 +13,26 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://swapi.dev/api/films/");
+      const response = await fetch(
+        "https://udemy-movie-project-default-rtdb.firebaseio.com/movies.json"
+      );
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
 
       const data = await response.json();
 
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date
-        };
-      });
-      setMovies(transformedMovies);
+      const loadedMovies = [];
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate
+        });
+      }
+
+      setMovies(loadedMovies);
     } catch (error) {
       setError(error.message);
     }
@@ -39,12 +43,32 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
-  function addMovieHandler(movie) {
-    // in here, you'd set up a post request to a backend
-    // I don't want to set up a firebase account so I'm not going to do this
-    // In the past, I've set up an express backend with MongoDB connection
-    console.log(movie);
-  }
+  const addMovieHandler = async (movie) => {
+    try {
+      const response = await fetch(
+        "https://udemy-movie-project-default-rtdb.firebaseio.com/movies.json",
+        {
+          headers: {
+            "Content-Type": "application/json"
+          },
+          method: "POST",
+          body: JSON.stringify(movie)
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+      const data = await response.json();
+
+      const movieToAdd = { key: data.name, ...movie };
+
+      setMovies((prevMovies) => {
+        return prevMovies.concat(movieToAdd);
+      });
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   let content = <p>Found no movies.</p>;
 
