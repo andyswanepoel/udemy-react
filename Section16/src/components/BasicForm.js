@@ -66,13 +66,17 @@ const BasicForm = (props) => {
   };
 
   const ErrorMessage = ({ message }) => {
-    return <p style={{ color: "red" }}>{message}</p>;
+    return <p className="error-text">{message}</p>;
   };
 
   return (
     <form onSubmit={submitHandler}>
       <div className="control-group">
-        <div className="form-control">
+        <div
+          className={
+            firstNameInputInvalid ? "invalid form-control" : "form-control"
+          }
+        >
           <label htmlFor="firstname">First Name</label>
           <input
             value={firstNameValue}
@@ -85,7 +89,11 @@ const BasicForm = (props) => {
             <ErrorMessage message={firstNameErrorMessage} />
           )}
         </div>
-        <div className="form-control">
+        <div
+          className={
+            lastNameInputInvalid ? "invalid form-control" : "form-control"
+          }
+        >
           <label htmlFor="lastname">Last Name</label>
           <input
             value={lastNameValue}
@@ -99,7 +107,9 @@ const BasicForm = (props) => {
           )}
         </div>
       </div>
-      <div className="form-control">
+      <div
+        className={emailInputInvalid ? "invalid form-control" : "form-control"}
+      >
         <label htmlFor="email">E-Mail Address</label>
         <input
           value={emailValue}
