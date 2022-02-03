@@ -49,6 +49,20 @@ body {
   border-radius: 4px;
 }
 
+.btn--inline {
+  cursor: pointer;
+  font: inherit;
+  color: teal;
+  border: none;
+  background-color: none;
+  text-decoration: none;
+}
+.btn--inline:hover,
+.btn--inline:active,
+.btn--inline:focus {
+  text-decoration: underline;
+}
+
 .btn--flat:hover,
 .btn--flat:active {
   background-color: teal;
